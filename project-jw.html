@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* ───────── 공통 스타일 ───────── */
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #0d6efd;
+        color: #fff;
+        font-weight: bold;
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+      .navbar-brand {
+        font-weight: 700;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 1rem;
+      }
+      .navbar-light .nav-link.active {
+        color: #0d6efd;
+        font-weight: 600;
+      }
+
+      /* ───────── Hero ───────── */
+      .hero-illustration {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin: 0 auto;
+      }
+      @media (max-width: 768px) {
+        .hero-illustration {
+          max-width: 300px;
+        }
+      }
+      @media (max-width: 576px) {
+        .hero-illustration {
+          max-width: 200px;
+        }
+      }
+
+      /* ───────── 카드 클릭 가능 ───────── */
+      /* 카드 이미지 영역: 고정 높이 + 회색 배경 + 중앙 정렬 */
+      .card-image-section {
+        height: 200px; /* 높이를 고정 */
+        background-color: #ffffff; /* 회색 배경 */
+        display: flex; /* Flexbox로 중앙 정렬 */
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* 이미지가 넘치면 자름 */
+      }
+
+      /* SVG는 높이에 맞추고, 가로는 자동으로 비율 유지 */
+      .card-image-section img {
+        max-height: 100%; /* 부모 높이(150px)에 딱 맞춤 */
+        width: auto; /* 비율대로 가로 크기 자동 조정 */
+        padding: 1.5rem;
+        display: block;
+      }
+
+      /* 카드 전체 링크의 기본 밑줄 제거 */
+      .card-clickable {
+        text-decoration: none !important;
+      }
+
+      /* 카드 내부 제목·본문의 밑줄 제거 */
+      .card-clickable .card-title,
+      .card-clickable .card-text {
+        text-decoration: none !important;
+      }
+
+      /* ───────── Carousel (스크롤스파이와 관계 없음) ───────── */
+      #carouselExample .carousel-item {
+        height: 500px;
+        background: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #666;
+      }
+
+      #features {
+        margin-bottom: 5rem; /* 원하는 값으로 조절 */
+      }
+    </style>
+  </head>
+  <body
+    class="position-relative"
+    data-bs-spy="scroll"
+    data-bs-target="#navbarNavDropdown"
+    data-bs-offset="70"
+    tabindex="0"
+  >
+    <!-- ================= Navbar ================= -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light fixed-top glass shadow-lg"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#home">
+          <div class="logo me-2">J</div>
+          Jaewon's Portfolio
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul
+            class="navbar-nav ms-auto navbar-nav-scroll"
+            style="--bs-scroll-height: 70vh"
+          >
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#projects"
+                id="projectsDropdown"
+                data-bs-toggle="dropdown"
+                >Projects</a
+              >
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="projectsDropdown"
+              >
+                <li><a class="dropdown-item" href="#websites">Websites</a></li>
+                <li><a class="dropdown-item" href="#apps">Apps</a></li>
+                <li><a class="dropdown-item" href="#designs">Designs</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <span class="navbar-text ms-3">
+            <a href="resume.pdf" class="btn btn-primary">Resume</a>
+          </span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= Main ================= -->
+    <main class="mt-5 pt-5">
+      <!-- Hero -->
+      <section id="home" class="min-vh-100 d-flex align-items-center">
+        <div class="container">
+          <div class="row align-items-center">
+            <div
+              class="col-12 col-md-6 order-1 order-md-2 text-center mb-4 mb-md-0"
+            >
+              <img
+                src="undraw_web-app_141a.svg"
+                class="img-fluid rounded hero-illustration"
+                alt="Developer Activity Illustration"
+              />
+            </div>
+            <div
+              class="col-12 col-md-6 order-2 order-md-1 text-center text-md-start"
+            >
+              <h1 class="display-5 fw-bold mb-3">
+                Welcome to Jaewon's Portfolio.<br />
+                Develop anything.
+              </h1>
+              <p class="lead mb-4">
+                Explore my work built with Bootstrap, HTML, CSS & JavaScript,<br />
+                and let's bring your ideas to life.
+              </p>
+              <a href="#projects" class="btn btn-primary btn-lg me-2"
+                >View Projects</a
+              >
+              <a href="resume.pdf" class="btn btn-outline-secondary btn-lg"
+                >Download Resume</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="py-4 pt-5 bg-light text-center">
+        <div class="container">
+          <h2>Hi, I'm Jaewon</h2>
+          <p class="lead">
+            사용자 친화적이고 반응형 웹사이트를 만드는 웹 개발자입니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- Features (카드) -->
+      <section id="features" class="py-3 bg-light">
+        <div class="container">
+          <div class="row g-4">
+            <!-- Clean Code -->
+            <div class="col-12 col-md-4">
+              <a href="#about" class="card card-clickable h-100">
+                <div class="card-image-section">
+                  <img src="Clean Code.svg" alt="Clean Code Illustration" />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Clean Code</h5>
+                  <p class="card-text">
+                    Semantic HTML5, modular CSS, and readable JavaScript로
+                    유지보수하기 쉬운 코드를 작성합니다.
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <!-- Reusable Components -->
+            <div class="col-12 col-md-4">
+              <a href="#projects" class="card card-clickable h-100">
+                <div class="card-image-section">
+                  <img
+                    src="Reusable-Componets.svg"
+                    alt="Reusable Components Illustration"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Reusable Components</h5>
+                  <p class="card-text">
+                    Bootstrap 5 기반의 재사용 가능한 UI 컴포넌트로 빠르고 일관된
+                    개발을 지원합니다.
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <!-- Comprehensive Docs -->
+            <div class="col-12 col-md-4">
+              <a href="#contact" class="card card-clickable h-100">
+                <div class="card-image-section">
+                  <img
+                    src="Comprehensive-Docs.svg"
+                    alt="Documentation Illustration"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Comprehensive Docs</h5>
+                  <p class="card-text">
+                    프로젝트마다 자세한 README와 사용 예시를 포함해 누구나 쉽게
+                    활용할 수 있습니다.
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Main 종료 후 푸터 시작 -->
+    <footer class="bg-primary text-white py-4">
+      <div class="container text-center">
+        <!-- 상단 소셜/링크 -->
+        <div class="mb-3">
+          <a
+            href="https://github.com/jaewon"
+            target="_blank"
+            class="text-white me-3"
+          >
+            <i class="bi bi-github me-1"></i>GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/jaewon"
+            target="_blank"
+            class="text-white me-3"
+          >
+            <i class="bi bi-linkedin me-1"></i>LinkedIn
+          </a>
+          <a href="mailto:jaewon@example.com" class="text-white">
+            <i class="bi bi-envelope me-1"></i>Email
+          </a>
+        </div>
+        <!-- 저작권 -->
+        <p class="mb-0">&copy; 2025 Jaewon. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
