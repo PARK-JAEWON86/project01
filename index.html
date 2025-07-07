@@ -9,19 +9,30 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <style>
       /* ───────── 공통 스타일 ───────── */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        scroll-behavior: smooth;
+      }
       .logo {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         background-color: #0d6efd;
         color: #fff;
-        font-weight: bold;
-        font-family: sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: bold;
+        font-family: sans-serif;
         font-size: 1.2rem;
       }
       .navbar-brand {
@@ -39,67 +50,263 @@
         font-weight: 600;
       }
 
-      /* ───────── Hero ───────── */
+      /* ───────── Hero Text Bilingual Fade ───────── */
+      .hero-text {
+        position: relative;
+        /* 필요하다면 높이를 더 확보하세요 */
+        min-height: 300px;
+      }
+
+      .lang {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      @keyframes fade {
+        0%,
+        40% {
+          opacity: 1;
+        }
+        45%,
+        95% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .lang.kr {
+        animation: fade 6s infinite;
+      }
+
+      .lang.en {
+        animation: fade 6s infinite;
+        animation-delay: 3s;
+      }
+
+      /* ───────── Hero Illustration Responsive ───────── */
       .hero-illustration {
         width: 100%;
         max-width: 400px;
-        height: auto;
         margin: 0 auto;
       }
+
       @media (max-width: 768px) {
         .hero-illustration {
           max-width: 300px;
         }
       }
+
       @media (max-width: 576px) {
         .hero-illustration {
           max-width: 200px;
         }
       }
 
-      /* ───────── 카드 클릭 가능 ───────── */
-      /* 카드 이미지 영역: 고정 높이 + 회색 배경 + 중앙 정렬 */
+      /* 카드 클릭 가능 */
+      .card-clickable {
+        text-decoration: none !important;
+        color: inherit;
+      }
       .card-image-section {
-        height: 200px; /* 높이를 고정 */
-        background-color: #ffffff; /* 회색 배경 */
-        display: flex; /* Flexbox로 중앙 정렬 */
+        height: 200px;
+        background: #f8f9fa;
+        display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden; /* 이미지가 넘치면 자름 */
+        overflow: hidden;
       }
-
-      /* SVG는 높이에 맞추고, 가로는 자동으로 비율 유지 */
       .card-image-section img {
-        max-height: 100%; /* 부모 높이(150px)에 딱 맞춤 */
-        width: auto; /* 비율대로 가로 크기 자동 조정 */
+        max-height: 100%;
+        width: auto;
         padding: 1.5rem;
         display: block;
       }
 
-      /* 카드 전체 링크의 기본 밑줄 제거 */
-      .card-clickable {
-        text-decoration: none !important;
+      /* Projects 카드 */
+      .project-card {
+        width: 100%;
+        max-width: 24rem;
+        transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+        cursor: pointer;
       }
 
-      /* 카드 내부 제목·본문의 밑줄 제거 */
-      .card-clickable .card-title,
-      .card-clickable .card-text {
-        text-decoration: none !important;
+      /* ───────── 웹 전용 (>576px) ───────── */
+      @media (min-width: 577px) {
+        .project-card .btn {
+          display: none !important;
+        }
+        .project-card:hover {
+          transform: translateY(-4px);
+          background-color: rgba(13, 110, 253, 0.08);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .project-card:active,
+        .project-card.active {
+          transform: translateY(-2px);
+          background-color: rgba(13, 110, 253, 0.16);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        /* 번호 매기기 */
+        #websitesContent {
+          counter-reset: webCount;
+        }
+        #websitesContent .project-card::before {
+          counter-increment: webCount;
+          content: "Web " counter(webCount, decimal-leading-zero);
+          display: inline-block;
+          background: #f5f9fa;
+          color: #333;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+        #appsContent {
+          counter-reset: appCount;
+        }
+        #appsContent .project-card::before {
+          counter-increment: appCount;
+          content: "App " counter(appCount, decimal-leading-zero);
+          display: inline-block;
+          background: #f5f9fa;
+          color: #333;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+        #designsContent {
+          counter-reset: designCount;
+        }
+        #designsContent .project-card::before {
+          counter-increment: designCount;
+          content: "Des " counter(designCount, decimal-leading-zero);
+          display: inline-block;
+          background: #f5f9fa;
+          color: #333;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+        .project-card:hover::before,
+        .project-card:active::before,
+        .project-card.active::before {
+          background-color: #0d6efd !important;
+          color: #fff !important;
+        }
       }
 
-      /* ───────── Carousel (스크롤스파이와 관계 없음) ───────── */
-      #carouselExample .carousel-item {
-        height: 500px;
-        background: #ccc;
+      /* ───────── 모바일 전용 (≤576px) ───────── */
+      @media (max-width: 576px) {
+        .project-card .card-image-section {
+          display: none !important;
+        }
+        .project-card .card-body {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 1rem !important;
+          text-align: left;
+        }
+        .project-card .card-body h5,
+        .project-card .card-body p {
+          margin: 0;
+          flex: 1 1 auto;
+          text-align: left;
+        }
+        .project-card .btn {
+          flex: 0 0 auto;
+          margin: 0;
+          align-self: center;
+          display: block !important;
+        }
+      }
+
+      /* 모바일 (≤576px) 에서 Projects 그리드 숨기기 */
+      @media (max-width: 576px) {
+        #projects {
+          display: none !important;
+        }
+      }
+
+      /* 데스크탑 (≥577px) 에서 모바일 아코디언 숨기기 */
+      @media (min-width: 577px) {
+        #mobileProjectsAccordion {
+          display: none !important;
+        }
+      }
+
+      /* Offcanvas & 기타 */
+      #features {
+        margin-bottom: 5rem;
+      }
+      .chat-launch-btn {
+        position: fixed;
+        bottom: 4rem;
+        right: 3rem;
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+        background: #0d6efd;
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1055;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 3rem;
-        color: #666;
       }
-
-      #features {
-        margin-bottom: 5rem; /* 원하는 값으로 조절 */
+      .contact-offcanvas.offcanvas-end {
+        width: 320px;
+        max-width: 100%;
+      }
+      @media (max-width: 768px) {
+        .contact-offcanvas.offcanvas-end {
+          width: 100%;
+        }
+      }
+      .contact-offcanvas .offcanvas-header {
+        background: #0d6efd;
+        border-bottom: none;
+        padding: 3rem 1rem 1rem;
+      }
+      .contact-header {
+        background: #0d6efd;
+        color: #fff;
+        padding: 2rem 1rem 1rem;
+      }
+      .contact-header h6 {
+        margin-top: 2rem;
+      }
+      .avatars {
+        display: flex;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .avatars img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        object-fit: cover;
+      }
+      .contact-form .form-control:focus {
+        box-shadow: none;
+        border-color: #0d6efd;
+      }
+      .offcanvas-body {
+        padding: 0;
+      }
+      footer a {
+        text-decoration: none;
       }
     </style>
   </head>
@@ -110,11 +317,8 @@
     data-bs-offset="70"
     tabindex="0"
   >
-    <!-- ================= Navbar ================= -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top glass shadow-lg"
-      aria-label="Main navigation"
-    >
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top glass shadow-lg">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#home">
           <div class="logo me-2">J</div>
@@ -125,9 +329,6 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -145,32 +346,41 @@
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
-                href="#projects"
-                id="projectsDropdown"
+                href="#projects-desktop"
                 data-bs-toggle="dropdown"
                 >Projects</a
               >
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="projectsDropdown"
-              >
-                <li><a class="dropdown-item" href="#websites">Websites</a></li>
-                <li><a class="dropdown-item" href="#apps">Apps</a></li>
-                <li><a class="dropdown-item" href="#designs">Designs</a></li>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#websitesContent">Websites</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#appsContent">Apps</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#designsContent">Designs</a>
+                </li>
               </ul>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
+              <a
+                class="nav-link"
+                role="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#contactOffcanvas"
+                >Contact</a
+              >
             </li>
           </ul>
-          <span class="navbar-text ms-3">
-            <a href="resume.pdf" class="btn btn-primary">Resume</a>
-          </span>
+          <span class="navbar-text ms-3"
+            ><a href="resume.pdf" class="btn btn-primary">Resume</a></span
+          >
         </div>
       </div>
     </nav>
 
-    <!-- ================= Main ================= -->
+    <!-- Main -->
     <main class="mt-5 pt-5">
       <!-- Hero -->
       <section id="home" class="min-vh-100 d-flex align-items-center">
@@ -182,19 +392,18 @@
               <img
                 src="undraw_web-app_141a.svg"
                 class="img-fluid rounded hero-illustration"
-                alt="Developer Activity Illustration"
+                alt="Developer Illustration"
               />
             </div>
             <div
               class="col-12 col-md-6 order-2 order-md-1 text-center text-md-start"
             >
               <h1 class="display-5 fw-bold mb-3">
-                Welcome to Jaewon's Portfolio.<br />
-                Develop anything.
+                Welcome to Jaewon's Portfolio.<br />Develop anything.
               </h1>
               <p class="lead mb-4">
-                Explore my work built with Bootstrap, HTML, CSS & JavaScript,<br />
-                and let's bring your ideas to life.
+                Explore my work built with Bootstrap, HTML, CSS & JavaScript,<br />and
+                let's bring your ideas to life.
               </p>
               <a href="#projects" class="btn btn-primary btn-lg me-2"
                 >View Projects</a
@@ -217,53 +426,42 @@
         </div>
       </section>
 
-      <!-- Features (카드) -->
+      <!-- Features -->
       <section id="features" class="py-3 bg-light">
         <div class="container">
           <div class="row g-4">
-            <!-- Clean Code -->
             <div class="col-12 col-md-4">
               <a href="#about" class="card card-clickable h-100">
                 <div class="card-image-section">
-                  <img src="Clean Code.svg" alt="Clean Code Illustration" />
+                  <img src="Clean Code.svg" alt="Clean Code" />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Clean Code</h5>
                   <p class="card-text">
-                    Semantic HTML5, modular CSS, and readable JavaScript로
+                    Semantic HTML5, modular CSS, readable JavaScript로
                     유지보수하기 쉬운 코드를 작성합니다.
                   </p>
                 </div>
               </a>
             </div>
-
-            <!-- Reusable Components -->
             <div class="col-12 col-md-4">
               <a href="#projects" class="card card-clickable h-100">
                 <div class="card-image-section">
-                  <img
-                    src="Reusable-Componets.svg"
-                    alt="Reusable Components Illustration"
-                  />
+                  <img src="Reusable-Componets.svg" alt="Reusable Components" />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Reusable Components</h5>
                   <p class="card-text">
-                    Bootstrap 5 기반의 재사용 가능한 UI 컴포넌트로 빠르고 일관된
-                    개발을 지원합니다.
+                    Bootstrap 5 기반 재사용 UI 컴포넌트로 빠르고 일관된 개발을
+                    지원합니다.
                   </p>
                 </div>
               </a>
             </div>
-
-            <!-- Comprehensive Docs -->
             <div class="col-12 col-md-4">
-              <a href="#contact" class="card card-clickable h-100">
+              <a href="#contactOffcanvas" class="card card-clickable h-100">
                 <div class="card-image-section">
-                  <img
-                    src="Comprehensive-Docs.svg"
-                    alt="Documentation Illustration"
-                  />
+                  <img src="Comprehensive-Docs.svg" alt="Docs" />
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">Comprehensive Docs</h5>
@@ -277,15 +475,617 @@
           </div>
         </div>
       </section>
+
+      <!-- Projects -->
+      <section id="projects" class="py-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Projects</h2>
+          <div
+            class="btn-group d-flex justify-content-center mb-4"
+            role="group"
+          >
+            <button
+              type="button"
+              class="btn btn-outline-primary active"
+              data-target="#websitesContent"
+            >
+              Websites
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-target="#appsContent"
+            >
+              Apps
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-target="#designsContent"
+            >
+              Designs
+            </button>
+          </div>
+
+          <!-- Websites Grid -->
+          <div id="websitesContent" class="project-grid">
+            <div class="row g-4 justify-content-center">
+              <!-- Website 1 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 1</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website One</h5>
+                    <p class="card-text flex-grow-1">
+                      Bootstrap 기반 랜딩 페이지 제작.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Website 2 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 2</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website Two</h5>
+                    <p class="card-text flex-grow-1">
+                      React + Gatsby 정적 사이트.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Website 3 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 3</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website Three</h5>
+                    <p class="card-text flex-grow-1">
+                      Vue.js SPA 구현 프로젝트.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Website 4 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 4</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website Four</h5>
+                    <p class="card-text flex-grow-1">SvelteKit 기반 블로그.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Website 5 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 5</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website Five</h5>
+                    <p class="card-text flex-grow-1">Next.js와 Tailwind CSS.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Website 6 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 6</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Website Six</h5>
+                    <p class="card-text flex-grow-1">
+                      Gatsby + Contentful 블로그.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Apps Grid -->
+          <div id="appsContent" class="project-grid d-none">
+            <div class="row g-4 justify-content-center">
+              <!-- App 1 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 1</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App One</h5>
+                    <p class="card-text flex-grow-1">
+                      React Native 채팅 앱 프로젝트.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- App 2 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 2</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App Two</h5>
+                    <p class="card-text flex-grow-1">PWA 뉴스 리더 웹 앱.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- App 3 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 3</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App Three</h5>
+                    <p class="card-text flex-grow-1">
+                      Electron 메모장 데스크탑 앱.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- App 4 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 4</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App Four</h5>
+                    <p class="card-text flex-grow-1">Flutter 기반 쇼핑 앱.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- App 5 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 5</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App Five</h5>
+                    <p class="card-text flex-grow-1">SwiftUI 건강 관리 앱.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- App 6 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 6</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">App Six</h5>
+                    <p class="card-text flex-grow-1">Kotlin 안드로이드 앱.</p>
+                    <a href="#" class="btn btn-primary mt-auto">View Repo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Designs Grid -->
+          <div id="designsContent" class="project-grid d-none">
+            <div class="row g-4 justify-content-center">
+              <!-- Design 1 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 1</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design One</h5>
+                    <p class="card-text flex-grow-1">Figma UI/UX 프로토타입.</p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Design 2 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 2</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design Two</h5>
+                    <p class="card-text flex-grow-1">Sketch 앱 화면 디자인.</p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Design 3 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 3</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design Three</h5>
+                    <p class="card-text flex-grow-1">Adobe XD 랜딩 페이지.</p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Design 4 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 4</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design Four</h5>
+                    <p class="card-text flex-grow-1">
+                      Illustrator 아이콘 세트.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Design 5 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 5</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design Five</h5>
+                    <p class="card-text flex-grow-1">Photoshop 배너 디자인.</p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Design 6 -->
+              <div
+                class="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+              >
+                <div class="card h-100 project-card">
+                  <div class="card-image-section">이미지 6</div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Design Six</h5>
+                    <p class="card-text flex-grow-1">
+                      InDesign 전자책 레이아웃.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-auto"
+                      >View Prototype</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 모바일 전용: 제목 + 아코디언 -->
+      <div id="projects-mobile" class="container my-4 d-sm-none">
+        <h2 class="text-center mb-4">Projects</h2>
+        <div class="accordion" id="mobileProjectsAccordion">
+          <!-- Websites Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingWeb">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseWeb"
+                aria-expanded="true"
+                aria-controls="collapseWeb"
+              >
+                Websites
+              </button>
+            </h2>
+            <div
+              id="collapseWeb"
+              class="accordion-collapse collapse show"
+              aria-labelledby="headingWeb"
+              data-bs-parent="#mobileProjectsAccordion"
+            >
+              <div class="accordion-body p-0">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 01</span>
+                    Website One: Bootstrap 기반 랜딩 페이지 제작.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 02</span>
+                    Website Two: React + Gatsby 정적 사이트.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 03</span>
+                    Website Three: Vue.js SPA 구현 프로젝트.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 04</span>
+                    Website Four: SvelteKit 기반 블로그.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 05</span>
+                    Website Five: Next.js와 Tailwind CSS.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Web 06</span>
+                    Website Six: Gatsby + Contentful 블로그.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Apps Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingApp">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseApp"
+                aria-expanded="false"
+                aria-controls="collapseApp"
+              >
+                Apps
+              </button>
+            </h2>
+            <div
+              id="collapseApp"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingApp"
+              data-bs-parent="#mobileProjectsAccordion"
+            >
+              <div class="accordion-body p-0">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 01</span>
+                    App One: React Native 채팅 앱 프로젝트.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 02</span>
+                    App Two: PWA 뉴스 리더 웹 앱.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 03</span>
+                    App Three: Electron 메모장 데스크탑 앱.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 04</span>
+                    App Four: Flutter 기반 쇼핑 앱.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 05</span>
+                    App Five: SwiftUI 건강 관리 앱.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">App 06</span>
+                    App Six: Kotlin 안드로이드 앱.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Repo</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Designs Accordion -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDesign">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseDesign"
+                aria-expanded="false"
+                aria-controls="collapseDesign"
+              >
+                Designs
+              </button>
+            </h2>
+            <div
+              id="collapseDesign"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingDesign"
+              data-bs-parent="#mobileProjectsAccordion"
+            >
+              <div class="accordion-body p-0">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 01</span>
+                    Design One: Figma UI/UX 프로토타입.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 02</span>
+                    Design Two: Sketch 앱 화면 디자인.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 03</span>
+                    Design Three: Adobe XD 랜딩 페이지.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 04</span>
+                    Design Four: Illustrator 아이콘 세트.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 05</span>
+                    Design Five: Photoshop 배너 디자인.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge bg-secondary me-2">Des 06</span>
+                    Design Six: InDesign 전자책 레이아웃.
+                    <a href="#" class="btn btn-sm btn-primary float-end"
+                      >View Prototype</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Chat -->
+      <button
+        class="btn chat-launch-btn"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#contactOffcanvas"
+      >
+        <i class="bi bi-chat-dots-fill fs-2"></i>
+      </button>
+
+      <!-- Offcanvas Contact -->
+      <div
+        class="offcanvas offcanvas-end contact-offcanvas"
+        tabindex="-1"
+        id="contactOffcanvas"
+      >
+        <div class="offcanvas-header justify-content-center border-0">
+          <h5 class="text-white text-center w-100 mb-0">
+            도움이 필요하신가요?
+          </h5>
+        </div>
+        <div class="offcanvas-body">
+          <div class="contact-header text-center">
+            <div class="avatars mb-2">
+              <img src="jaewon.png" alt="Avatar" />
+            </div>
+            <h6 class="mb-1 text-white">문의 를 남겨주세요</h6>
+            <small class="text-light">최대한 빠르게 답변드리겠습니다 😊</small>
+          </div>
+          <form class="contact-form p-3">
+            <div class="mb-3">
+              <label for="contactName" class="form-label">이름</label>
+              <input
+                type="text"
+                id="contactName"
+                class="form-control"
+                placeholder="홍길동"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="contactPhone" class="form-label">휴대폰 번호</label>
+              <input
+                type="tel"
+                id="contactPhone"
+                class="form-control"
+                placeholder="010-1234-5678"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="contactEmail" class="form-label">이메일 주소</label>
+              <input
+                type="email"
+                id="contactEmail"
+                class="form-control"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div class="mb-3 form-floating">
+              <textarea
+                class="form-control"
+                placeholder="문의 내용을 작성해 주세요"
+                id="contactMessage"
+                style="height: 100px"
+                required
+              ></textarea>
+              <label for="contactMessage"
+                >궁금하신 내용을 자세히 작성해 주세요</label
+              >
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary w-100">
+              문의 전송
+            </button>
+          </form>
+        </div>
+      </div>
     </main>
 
-    <!-- Main 종료 후 푸터 시작 -->
+    <!-- Footer -->
     <footer class="bg-primary text-white py-4">
       <div class="container text-center">
-        <!-- 상단 소셜/링크 -->
         <div class="mb-3">
           <a
-            href="https://github.com/jaewon"
+            href="https://github.com/PARK-JAEWON86/project01"
             target="_blank"
             class="text-white me-3"
           >
@@ -298,16 +1098,39 @@
           >
             <i class="bi bi-linkedin me-1"></i>LinkedIn
           </a>
-          <a href="mailto:jaewon@example.com" class="text-white">
+          <a href="mailto:jw.original@gmail.com" class="text-white">
             <i class="bi bi-envelope me-1"></i>Email
           </a>
         </div>
-        <!-- 저작권 -->
         <p class="mb-0">&copy; 2025 Jaewon. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS & 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Projects 탭 전환
+      document.querySelectorAll(".btn-group .btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".btn-group .btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .querySelectorAll(".project-grid")
+            .forEach((g) => g.classList.add("d-none"));
+          document.querySelector(btn.dataset.target).classList.remove("d-none");
+        });
+      });
+      // 모바일 카드 터치 시 내부 버튼 링크로 이동
+      if (window.innerWidth <= 576) {
+        document.querySelectorAll(".project-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const link = card.querySelector(".btn-primary");
+            if (link && link.href) window.location.href = link.href;
+          });
+        });
+      }
+    </script>
   </body>
 </html>
