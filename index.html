@@ -6,6 +6,11 @@
     <title>My Portfolio</title>
     <!-- Bootstrap CSS -->
     <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
@@ -107,6 +112,43 @@
           max-width: 200px;
         }
       }
+      /*  메인 한영 변환  */
+      .hero-text {
+        position: relative;
+        min-height: 300px;
+      }
+
+      .lang {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      @keyframes fade {
+        0%,
+        40% {
+          opacity: 1;
+        }
+        45%,
+        95% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .lang.kr {
+        animation: fade 6s infinite;
+      }
+
+      .lang.en {
+        animation: fade 6s infinite;
+        animation-delay: 3s;
+      }
 
       /* 카드 클릭 가능 */
       .card-clickable {
@@ -136,7 +178,7 @@
         cursor: pointer;
       }
 
-      /* ───────── 웹 전용 (>576px) ───────── */
+      /* ─────────projects 웹 전용 (>576px) ───────── */
       @media (min-width: 577px) {
         .project-card .btn {
           display: none !important;
@@ -203,7 +245,7 @@
         }
       }
 
-      /* ───────── 모바일 전용 (≤576px) ───────── */
+      /* ─────────projects 모바일 전용 (≤576px) ───────── */
       @media (max-width: 576px) {
         .project-card .card-image-section {
           display: none !important;
@@ -243,6 +285,29 @@
           display: none !important;
         }
       }
+      /* Features 섹션 카드만 적용 */
+      .features-card {
+        /* 일단 전역 라디우스 초기화 */
+        border-radius: 0;
+        overflow: hidden; /* 내부 이미지가 튀어나오지 않게 */
+      }
+      /* 이미지 섹션만 위쪽 둥글게 */
+      .features-card .card-image-section {
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+      }
+      /* 바디(텍스트) 섹션만 아래쪽 둥글게 */
+      .features-card .card-body {
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+      }
+
+      @media (max-width: 576px) {
+        /* Features 섹션(About 바로 아래 카드) 이미지 숨기기 */
+        #features .card-image-section {
+          display: none !important;
+        }
+      }
 
       /* Offcanvas & 기타 */
       #features {
@@ -251,7 +316,7 @@
       .chat-launch-btn {
         position: fixed;
         bottom: 4rem;
-        right: 3rem;
+        right: 2rem;
         width: 4.5rem;
         height: 4.5rem;
         border-radius: 50%;
@@ -381,11 +446,12 @@
     </nav>
 
     <!-- Main -->
-    <main class="mt-5 pt-5">
+    <main class="mt-5 pt-1">
       <!-- Hero -->
       <section id="home" class="min-vh-100 d-flex align-items-center">
         <div class="container">
           <div class="row align-items-center">
+            <!-- SVG Illustration (변경 없음) -->
             <div
               class="col-12 col-md-6 order-1 order-md-2 text-center mb-4 mb-md-0"
             >
@@ -395,22 +461,50 @@
                 alt="Developer Illustration"
               />
             </div>
+
+            <!-- Text & Buttons: 한글/영문 교차 표시 -->
             <div
               class="col-12 col-md-6 order-2 order-md-1 text-center text-md-start"
             >
-              <h1 class="display-5 fw-bold mb-3">
-                Welcome to Jaewon's Portfolio.<br />Develop anything.
-              </h1>
-              <p class="lead mb-4">
-                Explore my work built with Bootstrap, HTML, CSS & JavaScript,<br />and
-                let's bring your ideas to life.
-              </p>
-              <a href="#projects" class="btn btn-primary btn-lg me-2"
-                >View Projects</a
-              >
-              <a href="resume.pdf" class="btn btn-outline-secondary btn-lg"
-                >Download Resume</a
-              >
+              <div class="hero-text">
+                <!-- English -->
+                <div class="lang en">
+                  <h1 class="display-5 fw-bold mb-3">
+                    Welcome to Jaewon's Portfolio.<br />Develop anything.
+                  </h1>
+                  <p class="lead mb-4">
+                    Explore my work built with Bootstrap, HTML, CSS &amp;
+                    JavaScript,<br />
+                    and let's bring your ideas to life.
+                  </p>
+                  <a href="#projects" class="btn btn-primary btn-lg me-2"
+                    >View Projects</a
+                  >
+                  <a href="resume.pdf" class="btn btn-outline-secondary btn-lg">
+                    Download Resume
+                  </a>
+                </div>
+
+                <!-- Korean -->
+                <div class="lang kr">
+                  <h1 class="display-5 fw-bold mb-3">
+                    재원의 포트폴리오에 <br />
+                    오신 것을 환영합니다.<br />
+                    무엇이든 개발해 드립니다.
+                  </h1>
+                  <p class="lead mb-4">
+                    Bootstrap, HTML, CSS &amp; JavaScript로 만든 작업을 확인해
+                    보세요.<br />
+                    아이디어를 함께 실현해 봅시다.
+                  </p>
+                  <a href="#projects" class="btn btn-primary btn-lg me-2"
+                    >프로젝트 보기</a
+                  >
+                  <a href="resume.pdf" class="btn btn-outline-secondary btn-lg">
+                    이력서 다운로드
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -427,11 +521,11 @@
       </section>
 
       <!-- Features -->
-      <section id="features" class="py-3 bg-light">
+      <section id="features" class="pt-3 pb-5 bg-light">
         <div class="container">
           <div class="row g-4">
             <div class="col-12 col-md-4">
-              <a href="#about" class="card card-clickable h-100">
+              <div class="card h-100 features-card">
                 <div class="card-image-section">
                   <img src="Clean Code.svg" alt="Clean Code" />
                 </div>
@@ -442,10 +536,10 @@
                     유지보수하기 쉬운 코드를 작성합니다.
                   </p>
                 </div>
-              </a>
+              </div>
             </div>
             <div class="col-12 col-md-4">
-              <a href="#projects" class="card card-clickable h-100">
+              <div class="card h-100 features-card">
                 <div class="card-image-section">
                   <img src="Reusable-Componets.svg" alt="Reusable Components" />
                 </div>
@@ -456,10 +550,10 @@
                     지원합니다.
                   </p>
                 </div>
-              </a>
+              </div>
             </div>
             <div class="col-12 col-md-4">
-              <a href="#contactOffcanvas" class="card card-clickable h-100">
+              <div class="card h-100 features-card">
                 <div class="card-image-section">
                   <img src="Comprehensive-Docs.svg" alt="Docs" />
                 </div>
@@ -470,14 +564,14 @@
                     활용할 수 있습니다.
                   </p>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Projects -->
-      <section id="projects" class="py-5">
+      <section id="projects" class="py-5 mb-5">
         <div class="container">
           <h2 class="text-center mb-4">Projects</h2>
           <div
@@ -790,7 +884,7 @@
       </section>
 
       <!-- 모바일 전용: 제목 + 아코디언 -->
-      <div id="projects-mobile" class="container my-4 d-sm-none">
+      <div id="projects-mobile" class="container my-5 d-sm-none">
         <h2 class="text-center mb-4">Projects</h2>
         <div class="accordion" id="mobileProjectsAccordion">
           <!-- Websites Accordion -->
@@ -1080,28 +1174,30 @@
       </div>
     </main>
 
+    <!-- Social Links (푸터 바로 위) -->
+    <div class="bg-white text-center py-3 mb-5">
+      <a
+        href="https://github.com/PARK-JAEWON86/project01"
+        target="_blank"
+        class="text-primary me-3"
+      >
+        <i class="bi bi-github me-1"></i>GitHub
+      </a>
+      <a
+        href="https://linkedin.com/in/jaewon"
+        target="_blank"
+        class="text-primary me-3"
+      >
+        <i class="bi bi-linkedin me-1"></i>LinkedIn
+      </a>
+      <a href="mailto:jw.original@gmail.com" class="text-primary">
+        <i class="bi bi-envelope me-1"></i>Email
+      </a>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-primary text-white py-4">
+    <footer class="bg-primary text-white py-2">
       <div class="container text-center">
-        <div class="mb-3">
-          <a
-            href="https://github.com/PARK-JAEWON86/project01"
-            target="_blank"
-            class="text-white me-3"
-          >
-            <i class="bi bi-github me-1"></i>GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/jaewon"
-            target="_blank"
-            class="text-white me-3"
-          >
-            <i class="bi bi-linkedin me-1"></i>LinkedIn
-          </a>
-          <a href="mailto:jw.original@gmail.com" class="text-white">
-            <i class="bi bi-envelope me-1"></i>Email
-          </a>
-        </div>
         <p class="mb-0">&copy; 2025 Jaewon. All rights reserved.</p>
       </div>
     </footer>
